@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans default-autowire="byName">
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:jdbc.properties</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+		<property name="jdbcUrl" value="jdbc:mysql://cdh15:3306/weixin?useUnicode=true&amp;characterEncoding=UTF-8" />
+		<property name="user" value="root" />
+		<property name="password" value="" />
+		<property name="autoCommitOnClose" value="true" />
+		
+		<property name="preferredTestQuery" value="SELECT 1" />
+		<property name="minPoolSize" value="1" />
+		<property name="maxPoolSize" value="50" />
+		<property name="initialPoolSize" value="20" />
+		<property name="maxIdleTime" value="2000" />
+		<property name="acquireIncrement" value="1" />
+
+		<property name="acquireRetryAttempts" value="30" />
+		<property name="acquireRetryDelay" value="2000" />
+		<property name="testConnectionOnCheckin" value="true" />
+		<property name="automaticTestTable" value="c3p0TestTable" />
+		<property name="idleConnectionTestPeriod" value="18000" />
+		<property name="checkoutTimeout" value="3000" />
+	</bean>
+	
+	
+	
+
+	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+		<property name="configLocation" value="classpath:sql-map-config.xml" />
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+<!-- 	<bean id="sqlMapClient2" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean"> -->
+<!-- 		<property name="configLocation" value="classpath:sql-map-config.xml" /> -->
+<!-- 		<property name="dataSource" ref="dataSource2" /> -->
+<!-- 	</bean> -->
+
+
+
+</beans>
+

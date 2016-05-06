@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="com/weixin/dao/sql/material.xml">
+
+	<insert id="insertMaterial" parameterClass="com.weixin.vo.Material">
+		<![CDATA[
+ 			   insert into material( 
+ 					  media_id, 
+ 					  parent_media_id, 
+ 					  url, 
+ 					  local_path, 
+ 					  type, 
+ 					  updated_time
+ 			       )values( 
+ 					  #media_id#, 
+ 					  #parent_media_id#, 
+ 					  #url#, 
+ 					  #local_path#, 
+ 					   #type#, 
+ 					  now()
+ 				) 
+				
+				
+ 		]]>
+	</insert>
+
+
+
+
+
+
+
+
+
+</sqlMap>

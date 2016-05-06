@@ -6,5 +6,5 @@
 		lazyLoadingEnabled="true" errorTracingEnabled="true" maxRequests="1024"
 		maxSessions="256" maxTransactions="32" useStatementNamespaces="true" />
 	
-	<sqlMap resource="" />
+	<sqlMap resource="com/weixin/dao/sql/material.xml" />
 </sqlMapConfig>
