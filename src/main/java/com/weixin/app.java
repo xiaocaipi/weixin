@@ -54,12 +54,12 @@ public class app {
 	public static void testFetchWeixin() throws Exception{
 		
 		HashMap<String, Object> paraMap = new HashMap<String, Object>();
-		String url = "http://mp.weixin.qq.com/s?__biz=MzI0NzAzNTUwMQ==&mid=2652412988&idx=1&sn=f5394e7a6e67047403d751fa8dd030f6&scene=1&srcid=0506QwPEiqvVTmTGHxOvY8Mw#rd";
+		String url = "http://mp.weixin.qq.com/s?__biz=MjM5NTAyODc2MA==&mid=2654343516&idx=6&sn=70a68ca3dfb5561f411f2a6a79dfa6a3&scene=1&srcid=0506XghVAkDOx2BgMjDIiRct#rd";
 		Document doc = null;
 		doc = NetUtil.goFetch(url, doc, paraMap);
 		Element element = doc.select("#js_content").get(0);
 		String content = element.toString();
-		File file = new File("/tmp/test11.txt");
+		File file = new File("G:\\tmp\\test12.txt");
 		
 		FileUtils.writeStringToFile(file, content, "utf-8");
 		

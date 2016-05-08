@@ -44,6 +44,4 @@
        </property> 
     </bean>  
     <import resource="classpath*:ibatis-config.xml" />
-<!--     <import resource="classpath*:applicationContext-bi-jms.xml" /> -->
-<!--     <import resource="classpath*:applicationContext-bi-processer.xml" /> -->
 </beans>

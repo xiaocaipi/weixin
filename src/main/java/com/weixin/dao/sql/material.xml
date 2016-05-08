@@ -25,11 +25,64 @@
  		]]>
 	</insert>
 
+	<select id="getMaterial" parameterClass="java.util.HashMap"
+		resultClass="com.weixin.vo.Material">
+		SELECT
+		*
+		FROM
+		material
+		WHERE
+		1=1
+		<isNotEmpty property="media_id" prepend="AND">
+					<![CDATA[
+					media_id =  #media_id#
+				   ]]>
+		</isNotEmpty>
+		<isNotEmpty property="id" prepend="AND">
+					<![CDATA[
+					 id = #id#
+				   ]]>
+		</isNotEmpty>
+
+	</select>
 
 
+<insert id="insertWordPic" parameterClass="com.weixin.vo.WordPic">
+		<![CDATA[
+ 			   insert into word_pic( 
+ 					  media_id, 
+ 					  thumb_media_id, 
+ 					  author, 
+ 					  title,
+ 					  content_source_url,
+ 					  digest,
+ 					  show_cover_pic,
+ 					  updated_time
+ 					 
+ 			       )values( 
+ 					  #media_id#,
+ 					  #thumb_media_id#,
+ 					  #author#,
+ 					  #title#,
+ 					  #content_source_url#,
+ 					  #digest#,
+ 					  #show_cover_pic#,
+ 					  now()
+ 				) 
+				
+				
+ 		]]>
+	</insert>
 
 
-
+	<update id="updateMaterialPic" parameterClass = "com.weixin.vo.Material">
+			
+				UPDATE material k SET
+				 k.parent_media_id=#parent_media_id#,
+				 k.updated_time =now()
+				where k.id=#id#
+			
+		</update>
 
 
 

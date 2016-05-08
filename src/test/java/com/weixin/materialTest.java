@@ -25,6 +25,7 @@ import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.weixin.dao.MaterialDao;
+import com.weixin.service.MaterialService;
 import com.weixin.vo.Material;
 
 
@@ -36,20 +37,27 @@ public class materialTest extends AbstractJUnit4SpringContextTests {
 	HashMap<String, Object> paraMap = new HashMap<String, Object>();
 	
 	@Autowired(required=true)
-	 @Qualifier("materialDao") 
-	public MaterialDao materialDao;
+	 @Qualifier("materialService") 
+	public MaterialService materialService;
 
+	@Ignore
 	@Test
-	public void proxyTest() throws Exception {
-		Material material = new Material();
-		material.setLocal_path("aaa");
-		material.setMedia_id("bbb");
-		material.setParent_media_id("12");
-		material.setType("222");
-		material.setUrl("1111");
-		materialDao.insertMaterial(material);
+	public void insertMaterialPicTest() throws Exception {
 
+		String local_path ="G:\\project\\weixin\\pic\\640.jpg";
+		materialService.insertMaterialPic(local_path, null, null);
+	}
+	
+	@Test
+//	@Ignore
+	public void insertMaterialWoldPicTest() throws Exception {
 
+		materialService.insertMaterialWoldPic();
+	}
+	@Test
+	public void updateMaterialWoldPicTest() throws Exception {
+
+		materialService.updateMaterialWoldPic();
 	}
 
 }

@@ -2,26 +2,32 @@ package com.weixin.vo;
 
 public class Material {
 
-	private String id;
+	public Material() {
+
+	}
+
+	public Material(String media_id,String parent_media_id,String url,String local_path,String type  ) {
+
+		this.media_id = media_id;
+		this.parent_media_id = parent_media_id;
+		this.url = url;
+		this.local_path = local_path;
+		this.type = type;
+	
+	}
+
+	private Integer id;
 
 	private String media_id;
-	
+
 	private String parent_media_id;
-	
+	// 图片在微信上的url
 	private String url;
-	
+
 	private String local_path;
-	
+
 	private String type;
-	
 
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
 
 	public String getMedia_id() {
 		return media_id;
@@ -62,8 +68,10 @@ public class Material {
 	public void setType(String type) {
 		this.type = type;
 	}
-	
-	
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	
 	
 
