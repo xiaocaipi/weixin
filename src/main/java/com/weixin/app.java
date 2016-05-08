@@ -1,13 +1,16 @@
 package com.weixin;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
+import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import com.weixin.util.NetUtil;
 
@@ -45,6 +48,7 @@ public class app {
 //		Media media = MaterialAPI.materialAdd_material(access_token, MediaType.image, file, null);
 //		System.out.println(media.getMedia_id());
 		testFetchWeixin();
+//		testMoveAd();
 		
 	}
 	
@@ -54,16 +58,50 @@ public class app {
 	public static void testFetchWeixin() throws Exception{
 		
 		HashMap<String, Object> paraMap = new HashMap<String, Object>();
-		String url = "http://mp.weixin.qq.com/s?__biz=MjM5NTAyODc2MA==&mid=2654343516&idx=6&sn=70a68ca3dfb5561f411f2a6a79dfa6a3&scene=1&srcid=0506XghVAkDOx2BgMjDIiRct#rd";
+		String url = "http://mp.weixin.qq.com/s?__biz=MzIzMzMzNTMwNw==&mid=100000004&idx=1&sn=4c9edbacbc2e3326424fd21a4625006a#rd";
 		Document doc = null;
 		doc = NetUtil.goFetch(url, doc, paraMap);
 		Element element = doc.select("#js_content").get(0);
 		String content = element.toString();
-		File file = new File("G:\\tmp\\test12.txt");
+		File file = new File("G:\\tmp\\test15.txt");
 		
 		FileUtils.writeStringToFile(file, content, "utf-8");
 		
 		
+		
+	}
+	
+	public static void testMoveAd() throws IOException{
+		File file = new File("G:\\tmp\\test14.txt");
+		
+		String content = FileUtils.readFileToString(file, "utf-8");
+		Document doc = Jsoup.parse(content);
+		 String filterword = "公众号,公号,微信号";
+		Elements elements = doc.getElementsByTag("p");
+		for(int i=0;i<elements.size();i++){
+			Element element = elements.get(i);
+			String elementString = element.toString();
+			String [] filterArray = filterword.split(",");
+			boolean isContain = false;
+			for(String filter:filterArray){
+				if(elementString.contains(filter)){
+					isContain = true;
+				}
+			}
+			//去掉有公众号的敏感词的一段
+			if(isContain){
+				content = content.replace(elementString, "");
+			}
+			//去掉最后的图片关注
+			if(i==elements.size()-1 && elementString.contains("data-src")){
+				content = content.replace(elementString, "");
+			   System.out.println(i);
+			}
+			
+			
+		}
+		
+		System.out.println(content);
 		
 	}
 

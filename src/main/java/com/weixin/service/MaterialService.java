@@ -8,8 +8,10 @@ import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
+import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -35,6 +37,10 @@ public class MaterialService {
 	@Autowired(required=true)
 	 @Qualifier("materialDao") 
 	private MaterialDao materialDao;
+	
+	private String top1String =" <p style=\"margin-top: 5px; max-width: 100%; min-height: 1em; white-space: normal; color: rgb(62, 62, 62); font-family: sans-serif; text-align: center; line-height: normal; box-sizing: border-box !important; word-wrap: break-word !important; background-color: rgb(255, 255, 255);\"><span style=\"max-width: 100%; color: rgb(192, 80, 77); font-size: 12px; box-sizing: border-box !important; word-wrap: break-word !important;\">中国第一感官传媒 最受欢迎图文公号</span><span style=\"max-width: 100%; color: rgb(192, 80, 77); font-size: 12px; box-sizing: border-box !important; word-wrap: break-word !important;\"></span></p>";
+	private String top2String =" <p style=\"margin-top: 5px; max-width: 100%; min-height: 1em; white-space: normal; font-family: sans-serif; text-align: center; line-height: normal; box-sizing: border-box !important; word-wrap: break-word !important; background-color: rgb(255, 255, 255);\"><span style=\"color: rgb(127, 127, 127); max-width: 100%; font-size: 12px; box-sizing: border-box !important; word-wrap: break-word !important;\">点击题目下方蓝字关注 </span><span style=\"max-width: 100%; font-size: 12px; box-sizing: border-box !important; word-wrap: break-word !important;\"><span style=\"color:#366092\"><strong>叮咚铛</strong></span></span></p>";
+	private String end1String =" <p style=\"text-align: center;\"><img data-s=\"300,640\" data-type=\"jpeg\" data-src=\"http://mmbiz.qpic.cn/mmbiz/T1JAyOWJPIIXvGRQicO48rsuYcDEqD6FA9B8BfzyOu7bicV3LHtjzUToW6r3nDTibSOUew8Lfqe9yyyk1H6dNpOSQ/0?wx_fmt=jpeg\" data-ratio=\"0.5485611510791367\" data-w=\"\" /><br /></p> ";
 	
 	private Token token = WeiXinCommon.getToken();
 	private String access_token = token.getAccess_token();
@@ -83,8 +89,12 @@ public class MaterialService {
 	
 	
 	public int updateMaterialWoldPic() throws IOException{
-		File file = new File("G:\\tmp\\test12.txt");
+		File file = new File("G:\\tmp\\test14.txt");
 		String content = FileUtils.readFileToString(file, "utf-8");
+		
+		content = this.filterWord(content);
+		
+		content = this.insertMyAd(content);
 		
 		HashMap<String, Object> fetchMap = new HashMap<String, Object>();
 
@@ -120,6 +130,41 @@ public class MaterialService {
 		material.setUrl(url);
 		materialDao.insertMaterial(material);
 		return 1;
+	}
+	
+	private String filterWord(String content){
+		
+		Document doc = Jsoup.parse(content);
+		 String filterword = "公众号,公号,微信号";
+		Elements elements = doc.getElementsByTag("p");
+		for(int i=0;i<elements.size();i++){
+			Element element = elements.get(i);
+			String elementString = element.toString();
+			String [] filterArray = filterword.split(",");
+			boolean isContain = false;
+			for(String filter:filterArray){
+				if(elementString.contains(filter)){
+					isContain = true;
+				}
+			}
+			//去掉有公众号的敏感词的一段
+			if(isContain){
+				content = content.replace(elementString, "");
+			}
+			//去掉最后的图片关注
+			if(i==elements.size()-1 && elementString.contains("data-src")){
+			   content = content.replace(elementString, "");
+			}
+			
+			
+		}
+		
+		return content;
+	}
+	
+	private String insertMyAd(String content){
+		content = top1String+top2String+content+end1String;
+		return content;
 	}
 	
 	
