@@ -48,7 +48,8 @@ public class MaterialService {
 	private Token token = WeiXinCommon.getToken();
 	private String access_token = token.getAccess_token();
 	
-	private String defaultPath ="/home/caidanfeng733/weixin/pic/";
+//	private String defaultPath ="/home/caidanfeng733/weixin/pic/";
+	private String defaultPath ="G:\\project\\weixin\\pic\\";
 	private String defaultMediaId = "KfMPvMmE-jXmfULPO8TEZiPw24jA60WaBcPCl1ZirIE";
 	
 	public int insertMaterialWoldPic(String fetchUrl) throws Exception{
@@ -63,6 +64,13 @@ public class MaterialService {
 		
 		doc = NetUtil.goFetch(url, doc, fetchMap);
 		Element element = doc.select("#js_content").get(0);
+		//获取摘要
+		String text = element.text();
+		String digest = this.getDigest(text);
+		if(text.length()>54){
+			
+		}
+		
 		String content = element.toString();
 		content = this.filterWord(content);
 		content = this.insertMyAd(content);
@@ -82,6 +90,7 @@ public class MaterialService {
 		article.setContent(content);
 		article.setThumb_media_id(thumb_media_id); 
 		article.setTitle(title);
+		article.setDigest(digest);
 		articles.add(article);		
 		
 		Media media = MaterialAPI.materialAdd_news(access_token, articles); 
@@ -230,6 +239,16 @@ public class MaterialService {
 		}
 		return return_media_id;
 		
+	}
+	//获取摘要
+	private String getDigest(String text){
+		String returnText = "";
+		if(text.length()>54){
+			returnText = text.substring(0,54);
+		}else{
+			returnText = text.substring(0,text.length());
+		}
+		return returnText;
 	}
 
 	public List<WordPic> getWordPicList(Map<String, String> paraMap) {

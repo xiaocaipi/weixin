@@ -89,7 +89,7 @@
 		
 <select id="getWordPicList" parameterClass="java.util.HashMap"
 		resultClass="com.weixin.vo.WordPic">
-		select id,updated_time,url,title from word_pic
+		select id,updated_time,url,title,digest from word_pic
 
 	</select>
 
