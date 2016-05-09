@@ -40,24 +40,25 @@ public class materialTest extends AbstractJUnit4SpringContextTests {
 	 @Qualifier("materialService") 
 	public MaterialService materialService;
 
-	@Ignore
-	@Test
-	public void insertMaterialPicTest() throws Exception {
-
-		String local_path ="G:\\project\\weixin\\pic\\640.jpg";
-		materialService.insertMaterialPic(local_path, null, null);
-	}
+//	@Test
+//	public void insertMaterialPicTest() throws Exception {
+//
+//		String local_path ="/home/caidanfeng733/weixin/pic/main.jpg";
+//		materialService.insertMaterialPic(local_path, null, null);
+//	}
 	
 	@Test
-//	@Ignore
 	public void insertMaterialWoldPicTest() throws Exception {
 
-		materialService.insertMaterialWoldPic();
+		String url = "http://mp.weixin.qq.com/s?__biz=MzAwODEzMjY2MA==&mid=2656627379&idx=1&sn=a0076b593d6a90e2578de93b3271ca3b&scene=1&srcid=0509bMbM5CkF2RZVV56deaLR#rd";
+		materialService.insertMaterialWoldPic(url);
+//		System.out.println(111);
 	}
-	@Test
-	public void updateMaterialWoldPicTest() throws Exception {
-
-		materialService.updateMaterialWoldPic();
-	}
+//	@Test
+//	public void updateMaterialWoldPicTest() throws Exception {
+//
+//		materialService.updateMaterialWoldPic();
+//	}
+	
 
 }

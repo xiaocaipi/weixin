@@ -57,6 +57,7 @@
  					  content_source_url,
  					  digest,
  					  show_cover_pic,
+ 					  url,
  					  updated_time
  					 
  			       )values( 
@@ -67,6 +68,7 @@
  					  #content_source_url#,
  					  #digest#,
  					  #show_cover_pic#,
+ 					  #url#,
  					  now()
  				) 
 				
@@ -83,6 +85,14 @@
 				where k.id=#id#
 			
 		</update>
+		
+		
+<select id="getWordPicList" parameterClass="java.util.HashMap"
+		resultClass="com.weixin.vo.WordPic">
+		select id,updated_time,url,title from word_pic
+
+	</select>
+
 
 
 

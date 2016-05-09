@@ -11,8 +11,11 @@ import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.message.BasicHeader;
 
+import com.weixin.vo.WordPicItem;
+
 import weixin.popular.api.API;
 import weixin.popular.bean.BaseResult;
+import weixin.popular.bean.material.NewsItem;
 import weixin.popular.bean.message.Article;
 import weixin.popular.client.LocalHttpClient;
 import weixin.popular.util.JsonUtil;
@@ -59,6 +62,22 @@ public class WeiXinPopularUtil {
 		}else{
 			return PARAM_ACCESS_TOKEN;
 		}
+	}
+	
+	
+	/**
+	 * 获取永久素材 newsItem
+	 * @param access_token
+	 * @param media_id
+	 * @return NewsItem
+	 */
+	public static WordPicItem materialGet_material_newsItem(String access_token,String media_id){
+		HttpUriRequest httpUriRequest = RequestBuilder.post()
+					.setUri(BASE_URI+"/cgi-bin/material/get_material")
+					.addParameter(getATPN(), access_token)
+					.setEntity(new StringEntity("{\"media_id\":\""+media_id+"\"}",Charset.forName("utf-8")))
+					.build();
+		return LocalHttpClient.executeJsonResult(httpUriRequest,WordPicItem.class);
 	}
 
 }

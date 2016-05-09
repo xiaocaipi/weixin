@@ -1,6 +1,8 @@
 package com.weixin.dao;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
@@ -30,6 +32,11 @@ public class MaterialDao extends BaseDao {
 	public void updateMaterialPic(Material thumb_media) {
 		this.updateObject(NAME_SPACE + ".updateMaterialPic", thumb_media);
 		
+	}
+
+	public List<WordPic> getWordPicList(Map<String, String> paraMap) {
+		
+		return this.getObjectForList(NAME_SPACE + ".getWordPicList", paraMap);
 	}
 
 }

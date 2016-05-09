@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
@@ -22,6 +24,7 @@ import com.weixin.util.WeiXinCommon;
 import com.weixin.util.WeiXinPopularUtil;
 import com.weixin.vo.Material;
 import com.weixin.vo.WordPic;
+import com.weixin.vo.WordPicItem;
 
 import weixin.popular.api.MaterialAPI;
 import weixin.popular.api.MediaAPI;
@@ -45,33 +48,49 @@ public class MaterialService {
 	private Token token = WeiXinCommon.getToken();
 	private String access_token = token.getAccess_token();
 	
-	public int insertMaterialWoldPic() throws Exception{
+	private String defaultPath ="/home/caidanfeng733/weixin/pic/";
+	private String defaultMediaId = "KfMPvMmE-jXmfULPO8TEZiPw24jA60WaBcPCl1ZirIE";
+	
+	public int insertMaterialWoldPic(String fetchUrl) throws Exception{
 		
 
 		
-		String url = "http://mp.weixin.qq.com/s?__biz=MjM5NTAyODc2MA==&mid=2654343516&idx=6&sn=70a68ca3dfb5561f411f2a6a79dfa6a3&scene=1&srcid=0506XghVAkDOx2BgMjDIiRct#rd";
+		String url = fetchUrl;
 		Document doc = null;
 		HashMap<String, Object> fetchMap = new HashMap<String, Object>();
 
-		fetchMap.put("id", 2);
-		Material thumb_media = materialDao.getMaterial(fetchMap);
-		String thumb_media_id = thumb_media.getMedia_id();
+		
 		
 		doc = NetUtil.goFetch(url, doc, fetchMap);
 		Element element = doc.select("#js_content").get(0);
 		String content = element.toString();
+		content = this.filterWord(content);
+		content = this.insertMyAd(content);
+		String media_id = this.dealThumbPic(doc);
+		if(StringUtils.isEmpty(media_id)){
+			media_id = defaultMediaId;
+		}
+		fetchMap.put("media_id", media_id);
+		Material thumb_media = materialDao.getMaterial(fetchMap);
+		String thumb_media_id = thumb_media.getMedia_id();
+		
+		String title = doc.select("#activity-name").get(0).text();
 		
 		List<Article> articles = new ArrayList<Article>();
 		WordPic article = new WordPic();
 		article.setAuthor("menu");
 		article.setContent(content);
-		article.setThumb_media_id(thumb_media_id);
-		article.setTitle("first1");
+		article.setThumb_media_id(thumb_media_id); 
+		article.setTitle(title);
 		articles.add(article);		
 		
-		Media media = MaterialAPI.materialAdd_news(access_token, articles);
+		Media media = MaterialAPI.materialAdd_news(access_token, articles); 
 		String word_pic_media_id = media.getMedia_id();
 		article.setMedia_id(word_pic_media_id);
+		//获取url
+		WordPicItem item = this.getMaterialWoldPic(word_pic_media_id);
+		String word_pic_url = item.getNews_item().get(0).getUrl();
+		article.setUrl(word_pic_url);
 		
 		//插入word_pic 表
 		materialDao.insertWordPic(article);
@@ -87,6 +106,10 @@ public class MaterialService {
 		return 1;
 	}
 	
+	public WordPicItem   getMaterialWoldPic(String media_id){
+		WordPicItem item = WeiXinPopularUtil.materialGet_material_newsItem(access_token, media_id);
+		return item;
+	}
 	
 	public int updateMaterialWoldPic() throws IOException{
 		File file = new File("G:\\tmp\\test14.txt");
@@ -117,7 +140,7 @@ public class MaterialService {
 	
 	
 	//第一要存数据库 第二要存到微信里面去
-	public int insertMaterialPic(String local_path,String parent_media_id,String url ){
+	public String  insertMaterialPic(String local_path,String parent_media_id,String url ){
 		File file = new File(local_path);
 		Media media = MaterialAPI.materialAdd_material(access_token, MediaType.image, file, null);
 		String type = MediaType.image.uploadType();
@@ -129,13 +152,13 @@ public class MaterialService {
 		material.setParent_media_id(parent_media_id);
 		material.setUrl(url);
 		materialDao.insertMaterial(material);
-		return 1;
+		return media_id;
 	}
 	
 	private String filterWord(String content){
 		
 		Document doc = Jsoup.parse(content);
-		 String filterword = "公众号,公号,微信号";
+		 String filterword = "公众号,公号,微信号,点击,订阅";
 		Elements elements = doc.getElementsByTag("p");
 		for(int i=0;i<elements.size();i++){
 			Element element = elements.get(i);
@@ -147,8 +170,12 @@ public class MaterialService {
 					isContain = true;
 				}
 			}
-			//去掉有公众号的敏感词的一段
-			if(isContain){
+			//去掉有公众号的敏感词的一段,在头尾的位置才去掉
+			boolean isPosition = false;
+			if(i<5 || i>elements.size()-5){
+				isPosition =true;
+			}
+			if(isContain && isPosition){
 				content = content.replace(elementString, "");
 			}
 			//去掉最后的图片关注
@@ -165,6 +192,49 @@ public class MaterialService {
 	private String insertMyAd(String content){
 		content = top1String+top2String+content+end1String;
 		return content;
+	}
+	
+	private String  dealThumbPic(Document doc){
+		
+		Element element = doc.select("#js_content").get(0);
+		String fileName = UUID.randomUUID().toString();
+		String return_media_id = "";
+		////先去封面找
+		if(doc.select("#media").size()>0){
+			String pic = doc.select("#media").get(0).toString();
+			String picUrl = WeiXinCommon.getRegexContent(pic, "\"http(.+?)\"").replace("\"", "");
+			String localPath = WeiXinCommon.downloadPicture(picUrl,fileName,defaultPath );
+			return_media_id = this.insertMaterialPic(localPath, null, null);
+			
+		}else{//用第一张图片
+			Elements elements = element.getElementsByTag("img");
+			if(elements.size()>0){
+				for(int i = 0;i<elements.size();i++){
+					String elementString = elements.get(i).toString();
+					String lengthString = WeiXinCommon.getRegexContent(elementString, "data-w=\"(.+?)\"");
+					lengthString = lengthString.replace("data-w=\"", "").replace("\"", "");
+					int len = Integer.parseInt(lengthString);
+					if(len>200){
+						String picUrl = WeiXinCommon.getRegexContent(elementString, "\"http(.+?)\"").replace("\"", "");
+						String localPath = WeiXinCommon.downloadPicture(picUrl,"123","/tmp/" );
+						return_media_id = this.insertMaterialPic(localPath, null, null);
+						break;
+					}
+				}
+				
+			}
+			//用默认图片
+			else{
+				return_media_id = "";
+			}
+		}
+		return return_media_id;
+		
+	}
+
+	public List<WordPic> getWordPicList(Map<String, String> paraMap) {
+		
+		return materialDao.getWordPicList(paraMap);
 	}
 	
 	
