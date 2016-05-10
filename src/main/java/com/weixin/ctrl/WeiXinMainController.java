@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -28,10 +29,27 @@ public class WeiXinMainController extends MultiActionController {
 	 @Qualifier("materialService") 
 	public MaterialService materialService;
 
+	
+	@RequestMapping(params = "method=enterdong")
+	public ModelAndView enterdong(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/xml;charset=utf-8");
+		String type = request.getParameter("type");
+		request.setAttribute("type", type);
+
+		return new ModelAndView("weixin/dong.jsp");
+	}
+	
+	
 	@RequestMapping(params = "method=dong")
 	public ModelAndView dong(HttpServletRequest request, HttpServletResponse response) {
 		WordPicItem  returnItem = new  WordPicItem();
 		Map<String, String> paraMap = new HashMap<String, String>();
+		String type = request.getParameter("type");
+		if(StringUtils.isEmpty("type")){
+			type="0";
+		}
+		paraMap.put("type", type);
 		try {
 			List<WordPic>  wordPicList = materialService.getWordPicList(paraMap);
 			
@@ -66,7 +84,7 @@ public class WeiXinMainController extends MultiActionController {
 		
 		
 
-		return new ModelAndView("weixin/managedong");
+		return new ModelAndView("weixin/managedong.htm");
 	}
 	
 	
@@ -75,8 +93,12 @@ public class WeiXinMainController extends MultiActionController {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/xml;charset=utf-8");
 		String url = request.getParameter("url");
+		String type = request.getParameter("type");
+		Map<String, String> para = new HashMap<String, String>();
+		para.put("url", url);
+		para.put("type", type);
 		try {
-			materialService.insertMaterialWoldPic(url);
+//			materialService.insertMaterialWoldPic(para);
 			
 		} catch (Exception e) {
 
@@ -86,7 +108,7 @@ public class WeiXinMainController extends MultiActionController {
 		
 		
 
-		return new ModelAndView("weixin/managedong");
+		return new ModelAndView("weixin/managedong.htm");
 	}
 	
 	

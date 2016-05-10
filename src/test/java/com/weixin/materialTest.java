@@ -51,7 +51,7 @@ public class materialTest extends AbstractJUnit4SpringContextTests {
 	public void insertMaterialWoldPicTest() throws Exception {
 
 		String url = "http://mp.weixin.qq.com/s?__biz=MzAwODEzMjY2MA==&mid=2656627379&idx=1&sn=a0076b593d6a90e2578de93b3271ca3b&scene=1&srcid=0509bMbM5CkF2RZVV56deaLR#rd";
-		materialService.insertMaterialWoldPic(url);
+//		materialService.insertMaterialWoldPic(url);
 //		System.out.println(111);
 	}
 //	@Test

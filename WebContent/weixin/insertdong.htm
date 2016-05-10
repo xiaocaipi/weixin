@@ -41,19 +41,26 @@ function submitform() {
 <body>
 
 
-  <form class="form-horizontal form-signin" role="form" id="form"
+  <form class="" role="form" id="form"
 				method="post" name="form">
-				<div class="form-group" style="margin-bottom: 5px;">
-					<label for="username" class="col-sm-2 control-label">url：</label>
-					<div class="col-sm-10">
-						<div class="input-group">
-							<input class="form-control" id="url" name="url">
-						</div>
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="col-sm-offset-2 col-sm-10 font-gray" onclick="submitform()"> insert</div>
-				</div>
+	<section class="content-wrap">	
+	
+	<div class="container">
+
+		<div class="span3" style="padding-top:50px;">
+          <input type="text" value="" placeholder="url" class="span3" name="url">
+        </div>
+        <div class="span3" style="padding-top:50px;">
+          <input type="text" value="" placeholder="type " name="type" class="span3"> //1 是技术  2是综艺  3是体育  4是理财 0其他
+        </div>
+        
+        <div class="span3" style="padding-top:50px;">
+          <a href="#" class="btn btn-large btn-block btn-primary" onclick="submitform()">插入</a>
+        </div>
+        
+	</div>		
+		
+    </section>
 </form>
 
 

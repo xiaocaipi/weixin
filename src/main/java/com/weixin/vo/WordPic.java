@@ -2,6 +2,10 @@ package com.weixin.vo;
 
 import weixin.popular.bean.message.Article;
 
+/**
+ * @author cai
+ *
+ */
 public class WordPic extends Article {
 	
 	private String media_id;
@@ -11,6 +15,8 @@ public class WordPic extends Article {
 	private String url;
 	
 	private String updated_time;
+	//1 是技术  2是综艺  3是体育  4是理财 5其他
+	private String type;
 
 	public String getMedia_id() {
 		return media_id;
@@ -43,6 +49,15 @@ public class WordPic extends Article {
 	public void setUpdated_time(String updated_time) {
 		this.updated_time = updated_time;
 	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+	
 	
 	
 	

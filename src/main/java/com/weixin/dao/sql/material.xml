@@ -58,6 +58,7 @@
  					  digest,
  					  show_cover_pic,
  					  url,
+ 					  type,
  					  updated_time
  					 
  			       )values( 
@@ -69,6 +70,7 @@
  					  #digest#,
  					  #show_cover_pic#,
  					  #url#,
+ 					  #type#,
  					  now()
  				) 
 				
@@ -89,7 +91,9 @@
 		
 <select id="getWordPicList" parameterClass="java.util.HashMap"
 		resultClass="com.weixin.vo.WordPic">
-		select id,updated_time,url,title,digest,media_id,author from word_pic order by updated_time desc
+		select id,updated_time,url,title,digest,media_id,author from word_pic 
+		where type =#type#
+		order by updated_time desc
 
 	</select>
 	

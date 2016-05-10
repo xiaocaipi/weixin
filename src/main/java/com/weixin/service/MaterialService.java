@@ -52,11 +52,13 @@ public class MaterialService {
 	
 	private String sourceUrl ="http://www.wxtuiguang.cn:9090/weixin/dong.htm";
 	
-	public int insertMaterialWoldPic(String fetchUrl) throws Exception{
+	public int insertMaterialWoldPic(Map<String, String> para) throws Exception{
 		
-
+		String paraUrl = para.get("url");
+		String paratype = para.get("type");
 		
-		String url = fetchUrl;
+		
+		String url = paraUrl;
 		Document doc = null;
 		HashMap<String, Object> fetchMap = new HashMap<String, Object>();
 
@@ -92,6 +94,7 @@ public class MaterialService {
 		article.setTitle(title);
 		article.setDigest(digest);
 		article.setContent_source_url(sourceUrl);
+		article.setType(paratype);
 		articles.add(article);		
 		
 		Media media = MaterialAPI.materialAdd_news(WeiXinCommon.getToken(), articles); 

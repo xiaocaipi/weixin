@@ -1,27 +1,29 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 <!DOCTYPE html>  
 <html>  
     <head>  
         <meta charset="UTF-8">  
-        <title>豆瓣(手机版)</title>  
+        <title>è±ç£(ææºç)</title>  
         <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">  
         <meta name="format-detection" content="telephone=no">  
         <link rel="canonical" href="https://m.douban.com/">  
         <link href="https://img3.doubanio.com/f/talion/fb26015f2ec3400a22e76c198eef9bb40b2976ae/css/card/base.css" rel="stylesheet">  
           
-    <meta name="description" content="读书、看电影、涨知识、学穿搭...，加入兴趣小组，获得达人们的高质量生活经验，找到有相同爱好的小伙伴。">  
-    <meta name="keywords" content="豆瓣,手机豆瓣,豆瓣手机版,豆瓣电影,豆瓣读书,豆瓣同城">  
+    <meta name="description" content="è¯»ä¹¦ãççµå½±ãæ¶¨ç¥è¯ãå­¦ç©¿æ­...ï¼å å¥å´è¶£å°ç»ï¼è·å¾è¾¾äººä»¬çé«è´¨éçæ´»ç»éªï¼æ¾å°æç¸åç±å¥½çå°ä¼ä¼´ã">  
+    <meta name="keywords" content="è±ç£,ææºè±ç£,è±ç£ææºç,è±ç£çµå½±,è±ç£è¯»ä¹¦,è±ç£åå">  
       
       
     <!-- Schema.org markup for Google+ -->  
-    <meta itemprop="name" content="豆瓣">  
-    <meta itemprop="description" content="读书、看电影、涨知识、学穿搭...，加入兴趣小组，获得达人们的高质量生活经验，找到有相同爱好的小伙伴。">  
+    <meta itemprop="name" content="è±ç£">  
+    <meta itemprop="description" content="è¯»ä¹¦ãççµå½±ãæ¶¨ç¥è¯ãå­¦ç©¿æ­...ï¼å å¥å´è¶£å°ç»ï¼è·å¾è¾¾äººä»¬çé«è´¨éçæ´»ç»éªï¼æ¾å°æç¸åç±å¥½çå°ä¼ä¼´ã">  
     <meta itemprop="image" content="https://img3.doubanio.com/f/talion/cb57640a21826074ff65f12e82a27a779eb3f593/pics/icon/m_logo_180.png">  
     <!-- Twitter meta -->  
     <meta name="twitter:card" content="summary" />  
     <!-- Open Graph meta -->  
-    <meta property="og:title" content="豆瓣" />  
-    <meta property="og:description" content="读书、看电影、涨知识、学穿搭...，加入兴趣小组，获得达人们的高质量生活经验，找到有相同爱好的小伙伴。" />  
-    <meta property="og:site_name" content="豆瓣(手机版)" />  
+    <meta property="og:title" content="è±ç£" />  
+    <meta property="og:description" content="è¯»ä¹¦ãççµå½±ãæ¶¨ç¥è¯ãå­¦ç©¿æ­...ï¼å å¥å´è¶£å°ç»ï¼è·å¾è¾¾äººä»¬çé«è´¨éçæ´»ç»éªï¼æ¾å°æç¸åç±å¥½çå°ä¼ä¼´ã" />  
+    <meta property="og:site_name" content="è±ç£(ææºç)" />  
     <meta property="og:url" content="https://m.douban.com/" />  
     <meta property="og:image" content="https://img3.doubanio.com/f/talion/cb57640a21826074ff65f12e82a27a779eb3f593/pics/icon/m_logo_180.png" />  
     <meta property="og:image:type" content="image/png" />  
@@ -29,8 +31,8 @@
     <meta property="og:image:height" content="300" />  
     <meta property="og:type" content="article" />  
     <!-- Wechat meta -->  
-    <meta property="weixin:title" content="豆瓣" />  
-    <meta property="weixin:description" content="读书、看电影、涨知识、学穿搭...，加入兴趣小组，获得达人们的高质量生活经验，找到有相同爱好的小伙伴。" />  
+    <meta property="weixin:title" content="è±ç£" />  
+    <meta property="weixin:description" content="è¯»ä¹¦ãççµå½±ãæ¶¨ç¥è¯ãå­¦ç©¿æ­...ï¼å å¥å´è¶£å°ç»ï¼è·å¾è¾¾äººä»¬çé«è´¨éçæ´»ç»éªï¼æ¾å°æç¸åç±å¥½çå°ä¼ä¼´ã" />  
     <meta property="weixin:image" content="https://img3.doubanio.com/f/talion/cb57640a21826074ff65f12e82a27a779eb3f593/pics/icon/m_logo_180.png" />  
       
   
@@ -71,7 +73,7 @@
         <div class="page">  
               
       
-    <div id="TalionNav"><header class="TalionNav"><div class="TalionNav-primary"><a href="/"><h1>豆瓣</h1></a><nav><ul><li><a href="/movie" style="color: #2384E8;">电影</a></li><li><a href="/book" style="color: #9F7860;">图书</a></li><li><a href="/theme" style="color: #E4A813;">小事</a></li><li><a href="/group" style="color: #2AB8CC;">小组</a></li></ul><span></span></nav></div></header></div>  
+    <div id="TalionNav"><header class="TalionNav"><div class="TalionNav-primary"><a href="/"><h1>è±ç£</h1></a><nav><ul><li><a href="/movie" style="color: #2384E8;">çµå½±</a></li><li><a href="/book" style="color: #9F7860;">å¾ä¹¦</a></li><li><a href="/theme" style="color: #E4A813;">å°äº</a></li><li><a href="/group" style="color: #2AB8CC;">å°ç»</a></li></ul><span></span></nav></div></header></div>  
       
       
   
@@ -81,16 +83,16 @@
     <div class="card">  
         <ul class="quick-nav">  
             <li>  
-                <a href="/movie/nowintheater?loc_id=108288">影院热映</a>  
+                <a href="/movie/nowintheater?loc_id=108288">å½±é¢ç­æ </a>  
             </li>  
             <li>  
-                <a href="/group/explore/beauty/">变瘦变美变漂亮</a>  
+                <a href="/group/explore/beauty/">åç¦åç¾åæ¼äº®</a>  
             </li>  
             <li>  
                 <a id="hot-topics">&nbsp;</a>  
             </li>  
             <li>  
-                <a href="https://www.douban.com/accounts/login?redir=https://www.douban.com/">豆瓣广播</a>  
+                <a href="https://www.douban.com/accounts/login?redir=https://www.douban.com/">è±ç£å¹¿æ­</a>  
             </li>  
         </ul>  
         <section id="recommend-feed"></section>  
@@ -120,7 +122,7 @@
               $('#hot-topics').text(item.text).attr('href', item.mobile_url)  
           },  
           error: function(xhr, errorType, error) {  
-              $('#hot-topics').text('热门小事话题').attr('href', '/theme/')  
+              $('#hot-topics').text('ç­é¨å°äºè¯é¢').attr('href', '/theme/')  
           }  
         })  
       });  
