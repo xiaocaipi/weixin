@@ -234,6 +234,9 @@ public class MaterialService {
 					String elementString = elements.get(i).toString();
 					String lengthString = WeiXinCommon.getRegexContent(elementString, "data-w=\"(.+?)\"");
 					lengthString = lengthString.replace("data-w=\"", "").replace("\"", "");
+					if(!StringUtils.isNumeric(lengthString)){
+						continue;
+					}
 					int len = Integer.parseInt(lengthString);
 					if(len>200){
 						String picUrl = WeiXinCommon.getRegexContent(elementString, "\"http(.+?)\"").replace("\"", "");

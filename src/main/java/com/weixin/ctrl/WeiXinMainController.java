@@ -70,6 +70,26 @@ public class WeiXinMainController extends MultiActionController {
 	}
 	
 	
+	@RequestMapping(params = "method=insertdong")
+	public ModelAndView insertdong(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/xml;charset=utf-8");
+		String url = request.getParameter("url");
+		try {
+			materialService.insertMaterialWoldPic(url);
+			
+		} catch (Exception e) {
+
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+		
+		
+
+		return new ModelAndView("weixin/managedong");
+	}
+	
+	
 	
 
 }
