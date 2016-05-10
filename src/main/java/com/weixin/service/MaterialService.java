@@ -50,12 +50,15 @@ public class MaterialService {
 //	private String defaultPath ="G:\\project\\weixin\\pic\\";
 	private String defaultMediaId = "KfMPvMmE-jXmfULPO8TEZiPw24jA60WaBcPCl1ZirIE";
 	
-	private String sourceUrl ="http://www.wxtuiguang.cn:9090/weixin/dong.htm";
+	private String sourceUrl ="http://www.wxtuiguang.cn:9090/weixin.do?method=enterdong&type=";
 	
 	public int insertMaterialWoldPic(Map<String, String> para) throws Exception{
 		
 		String paraUrl = para.get("url");
 		String paratype = para.get("type");
+		if(StringUtils.isEmpty(paratype)){
+			paratype="0";
+		}
 		
 		
 		String url = paraUrl;
@@ -93,7 +96,7 @@ public class MaterialService {
 		article.setThumb_media_id(thumb_media_id); 
 		article.setTitle(title);
 		article.setDigest(digest);
-		article.setContent_source_url(sourceUrl);
+		article.setContent_source_url(sourceUrl+paratype);
 		article.setType(paratype);
 		articles.add(article);		
 		

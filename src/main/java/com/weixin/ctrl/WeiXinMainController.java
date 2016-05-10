@@ -46,7 +46,7 @@ public class WeiXinMainController extends MultiActionController {
 		WordPicItem  returnItem = new  WordPicItem();
 		Map<String, String> paraMap = new HashMap<String, String>();
 		String type = request.getParameter("type");
-		if(StringUtils.isEmpty("type")){
+		if(StringUtils.isEmpty(type)){
 			type="0";
 		}
 		paraMap.put("type", type);
@@ -98,7 +98,7 @@ public class WeiXinMainController extends MultiActionController {
 		para.put("url", url);
 		para.put("type", type);
 		try {
-//			materialService.insertMaterialWoldPic(para);
+			materialService.insertMaterialWoldPic(para);
 			
 		} catch (Exception e) {
 
