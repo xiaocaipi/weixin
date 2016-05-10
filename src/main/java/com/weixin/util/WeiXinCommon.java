@@ -15,10 +15,12 @@ import weixin.popular.bean.token.Token;
 
 public class WeiXinCommon {
 	
-	public static Token getToken(){
+	public static String getToken(){
 		Token token = TokenAPI.token("wx436dfcb8a1a76be0","d76669edcde1bd6845c76d7dcedb1899");
-		return token;
+		return token.getAccess_token();
 	}
+	
+	
 	
 	//download  pic   with list
 	public static int downloadPictureList(ArrayList<String> urlList) {  

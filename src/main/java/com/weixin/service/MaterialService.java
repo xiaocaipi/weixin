@@ -45,11 +45,9 @@ public class MaterialService {
 	private String top2String =" <p style=\"margin-top: 5px; max-width: 100%; min-height: 1em; white-space: normal; font-family: sans-serif; text-align: center; line-height: normal; box-sizing: border-box !important; word-wrap: break-word !important; background-color: rgb(255, 255, 255);\"><span style=\"color: rgb(127, 127, 127); max-width: 100%; font-size: 12px; box-sizing: border-box !important; word-wrap: break-word !important;\">点击题目下方蓝字关注 </span><span style=\"max-width: 100%; font-size: 12px; box-sizing: border-box !important; word-wrap: break-word !important;\"><span style=\"color:#366092\"><strong>叮咚铛</strong></span></span></p>";
 	private String end1String =" <p style=\"text-align: center;\"><img data-s=\"300,640\" data-type=\"jpeg\" data-src=\"http://mmbiz.qpic.cn/mmbiz/T1JAyOWJPIIXvGRQicO48rsuYcDEqD6FA9B8BfzyOu7bicV3LHtjzUToW6r3nDTibSOUew8Lfqe9yyyk1H6dNpOSQ/0?wx_fmt=jpeg\" data-ratio=\"0.5485611510791367\" data-w=\"\" /><br /></p> ";
 	
-	private Token token = WeiXinCommon.getToken();
-	private String access_token = token.getAccess_token();
 	
-//	private String defaultPath ="/home/caidanfeng733/weixin/pic/";
-	private String defaultPath ="G:\\project\\weixin\\pic\\";
+	private String defaultPath ="/home/caidanfeng733/weixin/pic/";
+//	private String defaultPath ="G:\\project\\weixin\\pic\\";
 	private String defaultMediaId = "KfMPvMmE-jXmfULPO8TEZiPw24jA60WaBcPCl1ZirIE";
 	
 	private String sourceUrl ="http://www.wxtuiguang.cn:9090/weixin/dong.htm";
@@ -96,7 +94,7 @@ public class MaterialService {
 		article.setContent_source_url(sourceUrl);
 		articles.add(article);		
 		
-		Media media = MaterialAPI.materialAdd_news(access_token, articles); 
+		Media media = MaterialAPI.materialAdd_news(WeiXinCommon.getToken(), articles); 
 		String word_pic_media_id = media.getMedia_id();
 		article.setMedia_id(word_pic_media_id);
 		//获取url
@@ -119,7 +117,7 @@ public class MaterialService {
 	}
 	
 	public WordPicItem   getMaterialWoldPic(String media_id){
-		WordPicItem item = WeiXinPopularUtil.materialGet_material_newsItem(access_token, media_id);
+		WordPicItem item = WeiXinPopularUtil.materialGet_material_newsItem(WeiXinCommon.getToken(), media_id);
 		return item;
 	}
 	
@@ -145,7 +143,7 @@ public class MaterialService {
 		article.setTitle("first333");
 		article.setShow_cover_pic("1");
 		articles.add(article);	
-		BaseResult result= WeiXinPopularUtil.materialUpdate_news(access_token, "KfMPvMmE-jXmfULPO8TEZjsR_SE4vfucgh9rexZTiBs", 0, articles);
+		BaseResult result= WeiXinPopularUtil.materialUpdate_news(WeiXinCommon.getToken(), "KfMPvMmE-jXmfULPO8TEZjsR_SE4vfucgh9rexZTiBs", 0, articles);
 		
 		return 1;
 	}
@@ -166,7 +164,7 @@ public class MaterialService {
 	//第一要存数据库 第二要存到微信里面去
 	public String  insertMaterialPic(String local_path,String parent_media_id,String url ){
 		File file = new File(local_path);
-		Media media = MaterialAPI.materialAdd_material(access_token, MediaType.image, file, null);
+		Media media = MaterialAPI.materialAdd_material(WeiXinCommon.getToken(), MediaType.image, file, null);
 		String type = MediaType.image.uploadType();
 		String media_id =media.getMedia_id();
 		Material material = new Material();
