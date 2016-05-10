@@ -52,6 +52,8 @@ public class MaterialService {
 	private String defaultPath ="G:\\project\\weixin\\pic\\";
 	private String defaultMediaId = "KfMPvMmE-jXmfULPO8TEZiPw24jA60WaBcPCl1ZirIE";
 	
+	private String sourceUrl ="http://www.wxtuiguang.cn:9090/weixin/dong.htm";
+	
 	public int insertMaterialWoldPic(String fetchUrl) throws Exception{
 		
 
@@ -91,6 +93,7 @@ public class MaterialService {
 		article.setThumb_media_id(thumb_media_id); 
 		article.setTitle(title);
 		article.setDigest(digest);
+		article.setContent_source_url(sourceUrl);
 		articles.add(article);		
 		
 		Media media = MaterialAPI.materialAdd_news(access_token, articles); 
