@@ -39,4 +39,8 @@ public class MaterialDao extends BaseDao {
 		return this.getObjectForList(NAME_SPACE + ".getWordPicList", paraMap);
 	}
 
+	public void updateMaterialWordPic(WordPic wordpic) {
+		this.updateObject(NAME_SPACE + ".updateMaterialWordPic", wordpic);
+	}
+
 }

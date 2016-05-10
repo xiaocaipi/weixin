@@ -89,9 +89,19 @@
 		
 <select id="getWordPicList" parameterClass="java.util.HashMap"
 		resultClass="com.weixin.vo.WordPic">
-		select id,updated_time,url,title,digest from word_pic
+		select id,updated_time,url,title,digest,media_id,author from word_pic
 
 	</select>
+	
+	<update id="updateMaterialWordPic" parameterClass = "com.weixin.vo.WordPic">
+			
+				UPDATE word_pic k SET
+				 k.digest=#digest#
+				where k.media_id=#media_id#
+			
+		</update>
+	
+	
 
 
 

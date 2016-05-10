@@ -9,7 +9,6 @@
 <link href="../css/flat-ui.css" rel="stylesheet">
 <link href="../css/demo.css" rel="stylesheet">
 <link rel="stylesheet" href="../css/font-awesome.min.css">
-
 <link rel="stylesheet" type="text/css"
 	href="http://www.ghostchina.com/assets/css/screen.css?v=82931f6358" />
 
@@ -23,6 +22,10 @@ $(document).ready(function() {
 	getList(1)
 });
 
+function articleUpdate(media_id){
+	var aa = media_id
+	alert(aa)
+}
 
 
 function getList(pageIndex) {
@@ -45,7 +48,7 @@ function getList(pageIndex) {
 					     +''+ tmp.title +'</a>'
 					     +'</h1>'
 					     +'<div class="post-meta">'
-					     +'<span class="author">作者 <a href="'+ tmp.url +'">'+ tmp.author +'</a></span>'
+					     +'<span class="author">作者：<a href="'+ tmp.url +'">'+ tmp.author +'</a></span> •'
 					     +'<time class="post-date" datetime="'+ tmp.updated_time +'"'
 					     +'title="'+ tmp.updated_time +'">'+ tmp.updated_time +'</time>'
 					     +'</div>'
@@ -54,15 +57,18 @@ function getList(pageIndex) {
 					     +'<p>'+ tmp.digest +'</p>' 
 					     +'</div>'
 					     +'<div class="post-permalink">'
-					     +'<a href="'+ tmp.url +'"'
-					     +'	class="btn btn-default">阅读原文</a>'
+					     +'<a href="/weixin.do?method=updatedong&media_id='+ tmp.media_id +'"'
+					     +'	class="btn btn-default">article update </a>'
 					     +'</div>'
 					     +'</article>';
 			}
 			$('#tab1').html(html);
 			
+// 			setPage(data, 'getList');///设置分页
 		}
 	});
+	
+	
 
 }
     </script>

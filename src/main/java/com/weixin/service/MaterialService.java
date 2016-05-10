@@ -148,6 +148,18 @@ public class MaterialService {
 	}
 	
 	
+	public int synchroMaterialWoldPic(String media_id) throws IOException{
+		
+		WordPicItem item = this.getMaterialWoldPic(media_id);
+		WordPic wordpic = item.getNews_item().get(0);
+		wordpic.setMedia_id(media_id);
+		materialDao.updateMaterialWordPic(wordpic);
+		
+		
+		return 1;
+	}
+	
+	
 	//第一要存数据库 第二要存到微信里面去
 	public String  insertMaterialPic(String local_path,String parent_media_id,String url ){
 		File file = new File(local_path);
