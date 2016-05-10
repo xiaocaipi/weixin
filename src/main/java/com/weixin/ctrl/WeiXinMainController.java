@@ -49,6 +49,9 @@ public class WeiXinMainController extends MultiActionController {
 		if(StringUtils.isEmpty(type)){
 			type="0";
 		}
+		if(type.equals("menu")){
+			type="";
+		}
 		paraMap.put("type", type);
 		try {
 			List<WordPic>  wordPicList = materialService.getWordPicList(paraMap);

@@ -92,7 +92,12 @@
 <select id="getWordPicList" parameterClass="java.util.HashMap"
 		resultClass="com.weixin.vo.WordPic">
 		select id,updated_time,url,title,digest,media_id,author from word_pic 
-		where type =#type#
+		where 1=1
+		<isNotEmpty property="type" prepend="AND">
+					<![CDATA[
+					 type =#type#
+				   ]]>
+		</isNotEmpty>
 		order by updated_time desc
 
 	</select>
