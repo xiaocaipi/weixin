@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
@@ -52,6 +54,7 @@ public class MaterialService {
 	
 	private String sourceUrl ="http://www.wxtuiguang.cn:9090/weixin.do?method=enterdong&type=";
 	
+	
 	public int insertMaterialWoldPic(Map<String, String> para) throws Exception{
 		
 		String paraUrl = para.get("url");
@@ -72,9 +75,7 @@ public class MaterialService {
 		//获取摘要
 		String text = element.text();
 		String digest = this.getDigest(text);
-		if(text.length()>54){
-			
-		}
+		
 		
 		String content = element.toString();
 		content = this.filterWord(content);
@@ -263,15 +264,28 @@ public class MaterialService {
 		
 	}
 	//获取摘要
-	private String getDigest(String text){
+	private  String getDigest(String text){
 		String returnText = "";
-		if(text.length()>54){
-			returnText = text.substring(0,54);
-		}else{
-			returnText = text.substring(0,text.length());
+		int start =0;
+		int end = 0;
+		int len = text.length();
+		
+		if(len>108){
+			start =len/2;
+			end = start+54;
+		}else if(len >54 && 54 <108){
+			start = 54;
+			end = len-1 ;
+		}else {
+			start =0;;
+			end = len -1;
 		}
+		
+		returnText = text.substring(start,end);
 		return returnText;
 	}
+	
+	
 
 	public List<WordPic> getWordPicList(Map<String, String> paraMap) {
 		
